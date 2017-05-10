@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyDropbox.Model
 {
-    public class File
+   public class Share
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public File FileId { get; set; }
+        public User UserId { get; set; }
+        public Permission PermissionId { get; set; }
     }
 }
