@@ -22,16 +22,16 @@ namespace MyDropbox
 
                 using (var command = connection.CreateCommand())
                 {
-                    var userId = Guid.NewGuid();
+                    var id = Guid.NewGuid();
                     command.CommandText = "insert into Users (Id, Name, Surname, Email) values (@Id, @Name, @Surname, @Email)";
-                    command.Parameters.AddWithValue("@Id", userId);
+                    command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Surname", surname);
                     command.Parameters.AddWithValue("@Email", email);
                     command.ExecuteNonQuery();
                     return new User
                     {
-                        Id = userId,
+                        Id = id,
                         Email = email,
                         Name = name,
                         Surname = surname
@@ -61,7 +61,7 @@ namespace MyDropbox
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select Id, Name, Surname, Email from users where Id = @Id";
+                    command.CommandText = "select Id, Name, Surname, Email from Users where Id = @Id";
                     command.Parameters.AddWithValue("@Id", id);
                     using (var reader = command.ExecuteReader())
                     {

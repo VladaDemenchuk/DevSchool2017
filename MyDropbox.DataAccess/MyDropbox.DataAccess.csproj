@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="ICommentsRepository.cs" />
     <Compile Include="IFilesRepository.cs" />
+    <Compile Include="IPermission.cs" />
+    <Compile Include="IShareRepository.cs" />
     <Compile Include="IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

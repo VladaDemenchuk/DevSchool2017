@@ -100,7 +100,7 @@ namespace MyDropbox
             }
         }
 
-        public IEnumerable<File> GetUserFiles(Guid id)
+        public IEnumerable<File> GetUserFiles(Guid userId)
         {
             var result = new List<File>();
             using (var connection = new SqlConnection(_connectionString))
@@ -108,13 +108,13 @@ namespace MyDropbox
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select Id from Files where Userid = @Userid";
-                    command.Parameters.AddWithValue("@Userid", id);
+                    command.CommandText = "select Id from Files where UserId = @UserId";
+                    command.Parameters.AddWithValue("@UserId", userId);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            result.Add(GetInfo(reader.GetGuid(reader.GetOrdinal("Userid"))));
+                            result.Add(GetInfo(reader.GetGuid(reader.GetOrdinal("Id"))));
                         }
                         return result;
                     }
