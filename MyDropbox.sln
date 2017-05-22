@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDropbox.Model", "MyDropbo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDropbox.DataAccess", "MyDropbox.DataAccess\MyDropbox.DataAccess.csproj", "{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDropbox.DataAccess.Sql", "MyDropbox\MyDropbox.DataAccess.Sql.csproj", "{29AADB26-C4FF-4121-98D2-61774E7FF275}"
+	ProjectSection(ProjectDependencies) = postProject
+		{927D2F76-B6B2-47BD-A7F2-065FDC6C5538} = {927D2F76-B6B2-47BD-A7F2-065FDC6C5538}
+		{B73C6BF5-5694-4893-9C22-DBE346BEE691} = {B73C6BF5-5694-4893-9C22-DBE346BEE691}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,10 @@ Global
 		{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AADB26-C4FF-4121-98D2-61774E7FF275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AADB26-C4FF-4121-98D2-61774E7FF275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AADB26-C4FF-4121-98D2-61774E7FF275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AADB26-C4FF-4121-98D2-61774E7FF275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

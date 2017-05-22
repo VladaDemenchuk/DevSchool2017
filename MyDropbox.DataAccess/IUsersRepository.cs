@@ -11,6 +11,6 @@ namespace MyDropbox.DataAccess
     {
         User Get(Guid id);
         void Delete(Guid id);
-        User Add(string name, string email);
+        User Add(string name, string surname, string email);
     }
 }
