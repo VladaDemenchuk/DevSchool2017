@@ -23,11 +23,11 @@ namespace MyDropbox
                 using (var command = connection.CreateCommand())
                 {
                     var userId = Guid.NewGuid();
-                    command.CommandText = "insert into users (id, name, surname, email) values (@id, @name, @surname, @email)";
-                    command.Parameters.AddWithValue("@id", userId);
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@surname", surname);
-                    command.Parameters.AddWithValue("email", email);
+                    command.CommandText = "insert into Users (Id, Name, Surname, Email) values (@Id, @Name, @Surname, @Email)";
+                    command.Parameters.AddWithValue("@Id", userId);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Surname", surname);
+                    command.Parameters.AddWithValue("@Email", email);
                     command.ExecuteNonQuery();
                     return new User
                     {
@@ -47,8 +47,8 @@ namespace MyDropbox
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "delete from users where id = @id";
-                    command.Parameters.AddWithValue("@id", id);
+                    command.CommandText = "delete from Users where Id = @Id";
+                    command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
                 }
             }
@@ -61,18 +61,18 @@ namespace MyDropbox
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select id, name, surname, email from users where id = @id";
-                    command.Parameters.AddWithValue("@id", id);
+                    command.CommandText = "select Id, Name, Surname, Email from users where Id = @Id";
+                    command.Parameters.AddWithValue("@Id", id);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             return new User
                             {
-                                Email = reader.GetString(reader.GetOrdinal("email")),
-                                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                                Name = reader.GetString(reader.GetOrdinal("name")),
-                                Surname = reader.GetString(reader.GetOrdinal("surname")),
+                                Id = reader.GetGuid(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Surname = reader.GetString(reader.GetOrdinal("Surname")),
+                                Email = reader.GetString(reader.GetOrdinal("Email"))
                             };
                         }
                         throw new ArgumentException("user not found");
