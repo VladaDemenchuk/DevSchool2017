@@ -1,9 +1,8 @@
-﻿using MyDropbox.DataAccess;
-using MyDropbox.Model;
+﻿using MyDropbox.Model;
 using System;
 using System.Data.SqlClient;
 
-namespace MyDropbox
+namespace MyDropbox.DataAccess.Sql
 {
     public class UsersRepository : IUsersRepository
     {
@@ -54,7 +53,7 @@ namespace MyDropbox
             }
         }
 
-        public User Get(Guid id)
+        public User GetInfo(Guid id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -82,4 +81,3 @@ namespace MyDropbox
         }
     }
 }
-

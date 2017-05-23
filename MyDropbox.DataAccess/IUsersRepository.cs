@@ -9,7 +9,7 @@ namespace MyDropbox.DataAccess
 {
     public interface IUsersRepository
     {
-        User Get(Guid id);
+        User GetInfo(Guid id);
         void Delete(Guid id);
         User Add(string name, string surname, string email);
     }

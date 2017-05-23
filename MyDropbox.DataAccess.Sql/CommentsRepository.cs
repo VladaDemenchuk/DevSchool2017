@@ -1,13 +1,9 @@
-﻿using MyDropbox.DataAccess;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyDropbox.Model;
 using System.Data.SqlClient;
 
-namespace MyDropbox
+namespace MyDropbox.DataAccess.Sql
 {
     public class CommentsRepository : ICommentsRepository
     {
@@ -15,10 +11,11 @@ namespace MyDropbox
         private readonly IFilesRepository _filesRepository;
         private readonly IUsersRepository _usersRepository;
 
-        public CommentsRepository(string connectionString, IFilesRepository filesRepository)
+        public CommentsRepository(string connectionString, IUsersRepository usersRepository, IFilesRepository filesRepository)
         {
             _connectionString = connectionString;
             _filesRepository = filesRepository;
+            _usersRepository = usersRepository;
         }
 
         public Comment Add(Comment comment)
@@ -138,7 +135,7 @@ namespace MyDropbox
                                 Text = reader.GetString(reader.GetOrdinal("Text")),
                                 Id = reader.GetGuid(reader.GetOrdinal("Id")),
                                 File = _filesRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("FileId"))),
-                                User = _usersRepository.Get(reader.GetGuid(reader.GetOrdinal("UserId")))
+                                User = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("UserId")))
                             };
                         }
                         throw new ArgumentException($"comment {id} not found");

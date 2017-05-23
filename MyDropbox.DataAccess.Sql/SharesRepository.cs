@@ -1,18 +1,13 @@
-﻿using MyDropbox.DataAccess;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyDropbox.Model;
-using System;
 using System.Data.SqlClient;
 
-namespace MyDropbox
+namespace MyDropbox.DataAccess.Sql
 {
     public class SharesRepository : ISharesRepository
     {
         private readonly string _connectionString;
-        private readonly IUsersRepository _usersRepository;
         private readonly IFilesRepository _filesRepository;
 
         public SharesRepository(string connectionString, IFilesRepository filesRepository)

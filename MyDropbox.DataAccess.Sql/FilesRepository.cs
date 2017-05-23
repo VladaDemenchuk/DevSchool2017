@@ -1,13 +1,9 @@
-﻿using MyDropbox.DataAccess;
-using MyDropbox.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using MyDropbox.Model;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyDropbox
+namespace MyDropbox.DataAccess.Sql
 {
     public class FilesRepository : IFilesRepository
     {
@@ -75,7 +71,7 @@ namespace MyDropbox
                             return new File
                             {
                                 Id = reader.GetGuid(reader.GetOrdinal("Id")),
-                                Owner = _usersRepository.Get(reader.GetGuid(reader.GetOrdinal("UserId"))),
+                                Owner = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("UserId"))),
                                 Name = reader.GetString(reader.GetOrdinal("Name"))
                             };
                         }
@@ -137,4 +133,3 @@ namespace MyDropbox
         }
     }
 }
-

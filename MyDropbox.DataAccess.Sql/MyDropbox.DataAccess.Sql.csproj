@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29AADB26-C4FF-4121-98D2-61774E7FF275}</ProjectGuid>
+    <ProjectGuid>{E70324E9-4BEC-4AA9-B7F6-8343E84B9549}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyDropbox</RootNamespace>
-    <AssemblyName>MyDropbox</AssemblyName>
+    <RootNamespace>MyDropbox.DataAccess.Sql</RootNamespace>
+    <AssemblyName>MyDropbox.DataAccess.Sql</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,11 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDropbox.DataAccess\MyDropbox.DataAccess.csproj">
-      <Project>{927d2f76-b6b2-47bd-a7f2-065fdc6c5538}</Project>
+      <Project>{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}</Project>
       <Name>MyDropbox.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyDropbox.Model\MyDropbox.Model.csproj">
-      <Project>{b73c6bf5-5694-4893-9c22-dbe346bee691}</Project>
+      <Project>{B73C6BF5-5694-4893-9C22-DBE346BEE691}</Project>
       <Name>MyDropbox.Model</Name>
     </ProjectReference>
   </ItemGroup>
