@@ -24,10 +24,10 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "insert into Files (Id, UserId, Name) values (@Id, @UserId, @Name)";
+                    command.CommandText = "insert into Files (Id, OwnerId, Name) values (@Id, @OwnerId, @Name)";
                     var fileId = Guid.NewGuid();
                     command.Parameters.AddWithValue("@Id", fileId);
-                    command.Parameters.AddWithValue("@UserId", file.Owner.Id);
+                    command.Parameters.AddWithValue("@OwnerId", file.Owner.Id);
                     command.Parameters.AddWithValue("@Name", file.Name);
                     command.ExecuteNonQuery();
                     file.Id = fileId;
@@ -62,7 +62,7 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select Id, UserId, Name from Files where Id = @Id";
+                    command.CommandText = "select Id, OwnerId, Name from Files where Id = @Id";
                     command.Parameters.AddWithValue("@Id", id);
                     using (var reader = command.ExecuteReader())
                     {
@@ -70,12 +70,13 @@ namespace MyDropbox.DataAccess.Sql
                         {
                             return new File
                             {
-                                Id = reader.GetGuid(reader.GetOrdinal("Id")),
-                                Owner = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("UserId"))),
-                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                                Id = reader.GetGuid(reader.GetOrdinal("id")),
+                                Owner = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("ownerId"))),
+                                Name = reader.GetString(reader.GetOrdinal("name"))
                             };
                         }
                         throw new ArgumentException("file not found");
+
                     }
                 }
             }
@@ -104,8 +105,8 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select Id from Files where UserId = @UserId";
-                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.CommandText = "select Id from Files where OwnerId = @OwnerId";
+                    command.Parameters.AddWithValue("@OwnerId", userId);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())

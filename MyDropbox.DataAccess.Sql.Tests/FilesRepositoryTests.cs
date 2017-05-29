@@ -11,7 +11,7 @@ namespace MyDropbox.DataAccess.Sql.Tests
     [TestClass]
     public class FilesRepositoryTests
     {
-        private const string ConnectionString = @"Data Source=DESKTOP-RH0RND7\SQLEXPRESS;Initial Catalog=Dropbox;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=WIN-P42TA030VHD;Initial Catalog=Dropbox;Integrated Security=True";
         private readonly IUsersRepository _usersRepository = new UsersRepository(ConnectionString);
         private readonly IFilesRepository _filesRepository;
 
@@ -84,7 +84,7 @@ namespace MyDropbox.DataAccess.Sql.Tests
         }
 
         [TestMethod]
-        public void ShoulGetUserFiles()
+        public void ShouldGetUserFiles()
         {
             var file1 = new File
             {

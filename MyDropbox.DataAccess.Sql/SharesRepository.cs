@@ -23,9 +23,9 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "insert into Share (FileId, UserId) values (@FileId, @UserId)";
-                    command.Parameters.AddWithValue("@FileId", share.FileId);
-                    command.Parameters.AddWithValue("@UserId", share.UserId);
+                    command.CommandText = "insert into Shares (FileId, UserId) values (@FileId, @UserId)";
+                    command.Parameters.AddWithValue("@FileId", share.File.Id);
+                    command.Parameters.AddWithValue("@UserId", share.User.Id);
                     command.ExecuteNonQuery();
                 }
             }
@@ -38,9 +38,9 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "delete from Share where FileId = @FileId and UserId = @UserId";
-                    command.Parameters.AddWithValue("@FileId", share.FileId);
-                    command.Parameters.AddWithValue("@UserId", share.UserId);
+                    command.CommandText = "delete from Shares where FileId = @FileId and UserId = @UserId";
+                    command.Parameters.AddWithValue("@FileId", share.File.Id);
+                    command.Parameters.AddWithValue("@UserId", share.User.Id);
                     command.ExecuteNonQuery();
                 }
             }
@@ -54,7 +54,7 @@ namespace MyDropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select FileId from Share where UserId = @UserId";
+                    command.CommandText = "select FileId from Shares where UserId = @UserId";
                     command.Parameters.AddWithValue("@UserId", userId);
                     using (var reader = command.ExecuteReader())
                     {

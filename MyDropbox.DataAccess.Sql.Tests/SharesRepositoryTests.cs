@@ -11,7 +11,7 @@ namespace MyDropbox.DataAccess.Sql.Tests
     [TestClass]
     public class SharesRepositoryTests
     {
-        private const string ConnectionString = @"Data Source=DESKTOP-RH0RND7\SQLEXPRESS;Initial Catalog=Dropbox;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=WIN-P42TA030VHD;Initial Catalog=Dropbox;Integrated Security=True";
         private readonly IUsersRepository _usersRepository = new UsersRepository(ConnectionString);
         private readonly IFilesRepository _filesRepository;
         private readonly ISharesRepository _sharesRepository;
@@ -24,6 +24,7 @@ namespace MyDropbox.DataAccess.Sql.Tests
 
         private User TestUser { get; set; }
         private File TestFile { get; set; }
+        private Share Share { get; set; }
 
         [TestInitialize]
         public void Init()
@@ -36,7 +37,13 @@ namespace MyDropbox.DataAccess.Sql.Tests
                 Owner = TestUser
             };
 
-            var TestFile = _filesRepository.Add(file);
+            TestFile = _filesRepository.Add(file);
+            Share = new Share()
+            {
+                File = TestFile,
+                User = TestUser
+            };
+            _sharesRepository.Add(Share);
         }
 
         [TestCleanup]
@@ -45,7 +52,11 @@ namespace MyDropbox.DataAccess.Sql.Tests
             if (TestUser != null)
             {
                 foreach (var file in _filesRepository.GetUserFiles(TestUser.Id))
+                {
+                    _sharesRepository.Delete(Share);
                     _filesRepository.Delete(file.Id);
+                }
+
                 _usersRepository.Delete(TestUser.Id);
             }
         }
@@ -53,27 +64,16 @@ namespace MyDropbox.DataAccess.Sql.Tests
         [TestMethod]
         public void ShouldCreateAndGetShares()
         {
-            var share = new Share()
-            {
-                FileId = TestFile,
-                UserId = TestUser
-            };
-            _sharesRepository.Add(share);
-            Assert.AreEqual(share.UserId, TestUser.Id);
-            Assert.AreEqual(share.FileId, TestFile.Id);
+            Assert.AreEqual(Share.User.Id, TestUser.Id);
+            Assert.AreEqual(Share.File.Id, TestFile.Id);
         }
 
         [TestMethod]
         public void ShouldDeleteShares()
         {
-            var share = new Share()
-            {
-                FileId = TestFile,
-                UserId = TestUser
-            };
-            _sharesRepository.Delete(share);
-            Assert.IsNull(share.UserId);
-            Assert.IsNull(share.FileId);
+            _sharesRepository.Add(Share);
+            _sharesRepository.Delete(Share);
+            Assert.IsTrue(_sharesRepository.GetUserFiles(Share.User.Id).Count() == 0);
         }
     }
 }
