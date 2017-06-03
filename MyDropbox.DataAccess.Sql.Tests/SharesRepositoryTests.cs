@@ -56,7 +56,6 @@ namespace MyDropbox.DataAccess.Sql.Tests
                     _sharesRepository.Delete(Share);
                     _filesRepository.Delete(file.Id);
                 }
-
                 _usersRepository.Delete(TestUser.Id);
             }
         }

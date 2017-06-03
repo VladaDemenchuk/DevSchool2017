@@ -70,9 +70,9 @@ namespace MyDropbox.DataAccess.Sql
                         {
                             return new File
                             {
-                                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                                Owner = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("ownerId"))),
-                                Name = reader.GetString(reader.GetOrdinal("name"))
+                                Id = reader.GetGuid(reader.GetOrdinal("Id")),
+                                Owner = _usersRepository.GetInfo(reader.GetGuid(reader.GetOrdinal("OwnerId"))),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
                             };
                         }
                         throw new ArgumentException("file not found");

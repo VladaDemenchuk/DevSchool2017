@@ -52,7 +52,6 @@ namespace MyDropbox.DataAccess.Sql.Tests
                 {
                     foreach (var comment in _commentsRepository.GetFileComments(file.Id))
                         _commentsRepository.Delete(comment.Id);
-
                     _filesRepository.Delete(file.Id);
                 }
                 _usersRepository.Delete(TestUser.Id);
