@@ -1,4 +1,5 @@
-﻿using MyDropbox.Model;
+﻿using MyDropbox.Log;
+using MyDropbox.Model;
 using System;
 using System.Data.SqlClient;
 
@@ -17,38 +18,54 @@ namespace MyDropbox.DataAccess.Sql
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-
-                using (var command = connection.CreateCommand())
+                try
                 {
-                    var id = Guid.NewGuid();
-                    command.CommandText = "insert into Users (Id, Name, Surname, Email) values (@Id, @Name, @Surname, @Email)";
-                    command.Parameters.AddWithValue("@Id", id);
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Surname", surname);
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.ExecuteNonQuery();
-                    return new User
+                    connection.Open();
+                    using (var command = connection.CreateCommand())
                     {
-                        Id = id,
-                        Email = email,
-                        Name = name,
-                        Surname = surname
-                    };
+                        var id = Guid.NewGuid();
+                        command.CommandText = "insert into Users (Id, Name, Surname, Email) values (@Id, @Name, @Surname, @Email)";
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@Surname", surname);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.ExecuteNonQuery();
+                        return new User
+                        {
+                            Id = id,
+                            Email = email,
+                            Name = name,
+                            Surname = surname
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Logger.ServiceLog.Fatal("Подключение к бд не установлено");
+                    throw ex;
                 }
             }
         }
+
 
         public void Delete(Guid id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-                using (var command = connection.CreateCommand())
+                try
                 {
-                    command.CommandText = "delete from Users where Id = @Id";
-                    command.Parameters.AddWithValue("@Id", id);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from Users where Id = @Id";
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Logger.ServiceLog.Fatal("Подключение к бд не установлено");
+                    throw ex;
                 }
             }
         }
@@ -74,6 +91,7 @@ namespace MyDropbox.DataAccess.Sql
                                 Email = reader.GetString(reader.GetOrdinal("Email"))
                             };
                         }
+                        Log.Logger.ServiceLog.Error("Пользователь с id {0} не найден", id);
                         throw new ArgumentException("user not found");
                     }
                 }

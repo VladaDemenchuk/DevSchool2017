@@ -1,5 +1,6 @@
 ﻿using MyDropbox.DataAccess;
 using MyDropbox.DataAccess.Sql;
+using MyDropbox.Log;
 using MyDropbox.Model;
 using System;
 using System.Web.Http;
@@ -22,6 +23,7 @@ namespace MyDropbox.WebApi.Controllers
         [HttpPost]
         public Comment CreateComment([FromBody]Comment comment)
         {
+            Logger.ServiceLog.Info("Create comment with id: {0}", comment.Id);
             return _commentsRepository.Add(comment);
         }
 
@@ -29,12 +31,14 @@ namespace MyDropbox.WebApi.Controllers
         [Route("api/comments/{id}")]
         public Comment GetComment(Guid id)
         {
+            Logger.ServiceLog.Info("Get comment with id: {0}", id);
             return _commentsRepository.GetInfo(id);
         }
 
         [HttpDelete]
         public void DeleteComment(Guid id)
         {
+            Logger.ServiceLog.Info("Delete comment with id: {0}", id);
             _commentsRepository.Delete(id);
         }
     }

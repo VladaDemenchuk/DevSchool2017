@@ -1,5 +1,6 @@
 ﻿using MyDropbox.DataAccess;
 using MyDropbox.DataAccess.Sql;
+using MyDropbox.Log;
 using MyDropbox.Model;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,14 @@ namespace MyDropbox.WebApi.Controllers
         [HttpPost]
         public File CreateFile(File file)
         {
+            Logger.ServiceLog.Info("Create file with id: {0}", file.Id);
             return _filesRepository.Add(file);
         }
 
         [HttpGet]
         public File GetFileInfo(Guid id)
         {
+            Logger.ServiceLog.Fatal("Get file with id: {0}", id);
             return _filesRepository.GetInfo(id);
         }
 
@@ -37,6 +40,7 @@ namespace MyDropbox.WebApi.Controllers
         [Route("api/files/{id}/content")]
         public byte[] GetFileContent(Guid id)
         {
+            Logger.ServiceLog.Info("Get file content with id: {0}", id);
             return _filesRepository.GetContent(id);
         }
 
@@ -45,6 +49,7 @@ namespace MyDropbox.WebApi.Controllers
         [Route("api/files/{id}/comments")]
         public IEnumerable<Comment> GetFileComments(Guid id)
         {
+            Logger.ServiceLog.Info("Get file comments with id: {0}", id);
             return _commentsRepository.GetFileComments(id);
         }
 
@@ -53,12 +58,14 @@ namespace MyDropbox.WebApi.Controllers
         public async Task UpdateFileContent(Guid id)
         {
             var bytes = await Request.Content.ReadAsByteArrayAsync();
+            Logger.ServiceLog.Info("Update file content with id: {0}", id);
             _filesRepository.UpdateContent(id, bytes);
         }
 
         [HttpDelete]
         public void DeleteFile(Guid id)
         {
+            Logger.ServiceLog.Info("Delete file with id: {0}", id);
             _filesRepository.Delete(id);
         }
 

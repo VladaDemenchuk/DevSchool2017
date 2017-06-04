@@ -1,5 +1,6 @@
 ﻿using MyDropbox.DataAccess;
 using MyDropbox.DataAccess.Sql;
+using MyDropbox.Log;
 using MyDropbox.Model;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace MyDropbox.WebApi.Controllers
         [HttpPost]
         public User CreateUser([FromBody]User user)
         {
+            Logger.ServiceLog.Info("Create user with id: {0}", user.Id);
             return _usersRepository.Add(user.Name, user.Surname, user.Email);
         }
 
@@ -33,27 +35,32 @@ namespace MyDropbox.WebApi.Controllers
         [Route("api/users/{id}")]
         public User GetUser(Guid id)
         {
+            Logger.ServiceLog.Info("Get user with id: {0}", id);
             return _usersRepository.GetInfo(id);
         }
 
-        [Route("api/users/{id}/files")]
+
         [HttpGet]
+        [Route("api/users/{id}/files")]
         public IEnumerable<File> GetUserFiles(Guid id)
         {
+            Logger.ServiceLog.Info("Get user files with id: {0}", id);
             return _filesRepository.GetUserFiles(id);
         }
 
-        [Route("api/users/{id}/sharings")]
+  
         [HttpGet]
+        [Route("api/users/{id}/sharings")]
         public IEnumerable<File> GetUserSharesFiles(Guid id)
         {
+            Logger.ServiceLog.Info("Get user shares files with id: {0}", id);
             return _sharesRepository.GetUserFiles(id);
         }
 
         [HttpDelete]
         public void DeleteUser(Guid id)
         {
-            //Log.Logger.ServiceLog.Info("Delete user with id: {0}", id);
+            Logger.ServiceLog.Info("Delete user with id: {0}", id);
             _usersRepository.Delete(id);
         }
     }

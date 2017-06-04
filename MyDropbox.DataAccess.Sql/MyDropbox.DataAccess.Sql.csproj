@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +54,17 @@
       <Project>{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}</Project>
       <Name>MyDropbox.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyDropbox.Log\MyDropbox.Log.csproj">
+      <Project>{27DEF919-C71F-4F8E-A34A-EE260C45E724}</Project>
+      <Name>MyDropbox.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDropbox.Model\MyDropbox.Model.csproj">
       <Project>{B73C6BF5-5694-4893-9C22-DBE346BEE691}</Project>
       <Name>MyDropbox.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
