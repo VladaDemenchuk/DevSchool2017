@@ -7,6 +7,6 @@ namespace MyDropbox.Model
         public Guid Id { get; set; }
         public User Owner { get; set; }
         public string Name { get; set; }
-
+        public override string ToString() => Name;
     }
 }

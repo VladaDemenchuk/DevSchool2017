@@ -97,5 +97,34 @@ namespace MyDropbox.DataAccess.Sql
                 }
             }
         }
+
+        public User GetInfo(string email)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "select Id, Name, Surname, Email from Users where Email = @Email";
+                    command.Parameters.AddWithValue("@Email", email);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new User
+                            {
+                                Id = reader.GetGuid(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Surname = reader.GetString(reader.GetOrdinal("Surname")),
+                                Email = reader.GetString(reader.GetOrdinal("Email"))
+                            };
+                        }
+                        Log.Logger.ServiceLog.Error("Пользователь с id {0} не найден", email);
+                        throw new ArgumentException("user not found");
+                    }
+                }
+            }
+
+        }
     }
 }

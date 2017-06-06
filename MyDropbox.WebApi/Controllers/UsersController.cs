@@ -39,6 +39,14 @@ namespace MyDropbox.WebApi.Controllers
             return _usersRepository.GetInfo(id);
         }
 
+        [HttpGet]
+        [Route("api/users/email/{email}")]
+        public User GetUser(string email)
+        {
+            Logger.ServiceLog.Info("Get user with id: {0}", email);
+            return _usersRepository.GetInfo(email);
+        }
+
 
         [HttpGet]
         [Route("api/users/{id}/files")]
@@ -58,6 +66,7 @@ namespace MyDropbox.WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("api/users/{id}")]
         public void DeleteUser(Guid id)
         {
             Logger.ServiceLog.Info("Delete user with id: {0}", id);

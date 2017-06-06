@@ -112,11 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDropbox.DataAccess.Sql\MyDropbox.DataAccess.Sql.csproj">
-      <Project>{e70324e9-4bec-4aa9-b7f6-8343e84b9549}</Project>
+      <Project>{E70324E9-4BEC-4AA9-B7F6-8343E84B9549}</Project>
       <Name>MyDropbox.DataAccess.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyDropbox.DataAccess\MyDropbox.DataAccess.csproj">
-      <Project>{927d2f76-b6b2-47bd-a7f2-065fdc6c5538}</Project>
+      <Project>{927D2F76-B6B2-47BD-A7F2-065FDC6C5538}</Project>
       <Name>MyDropbox.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyDropbox.Log\MyDropbox.Log.csproj">

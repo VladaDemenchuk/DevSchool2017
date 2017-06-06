@@ -25,12 +25,5 @@ namespace MyDropbox.WebApi.Controllers
             Logger.ServiceLog.Info("Create share with user id: {0} and file id: {1}", share.User.Id, share.File.Id);
             _sharesRepository.Add(share);
         }
-
-        [HttpDelete]
-        public void DeleteShare(Share share)
-        {
-            Logger.ServiceLog.Info("Delete share with user id: {0} and file id: {1}", share.User.Id, share.File.Id);
-            _sharesRepository.Delete(share);
-        }
     }
 }

@@ -8,5 +8,6 @@ namespace MyDropbox.Model
         public File File { get; set; }
         public User User { get; set; }
         public string Text { get; set; }
+        public override string ToString() => Text;
     }
 }

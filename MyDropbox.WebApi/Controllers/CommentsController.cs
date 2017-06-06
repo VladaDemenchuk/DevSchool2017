@@ -36,6 +36,7 @@ namespace MyDropbox.WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("api/comments/{id}")]
         public void DeleteComment(Guid id)
         {
             Logger.ServiceLog.Info("Delete comment with id: {0}", id);

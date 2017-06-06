@@ -30,6 +30,7 @@ namespace MyDropbox.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/files/{id}")]
         public File GetFileInfo(Guid id)
         {
             Logger.ServiceLog.Fatal("Get file with id: {0}", id);
@@ -63,11 +64,11 @@ namespace MyDropbox.WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("api/files/{id}")]
         public void DeleteFile(Guid id)
         {
             Logger.ServiceLog.Info("Delete file with id: {0}", id);
             _filesRepository.Delete(id);
         }
-
     }
 }
